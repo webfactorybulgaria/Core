@@ -5,4 +5,5 @@
     <a class="btn btn-default btn-preview" href="{{ $previewUri }}?preview=true">@lang('validation.attributes.preview')</a>
     @endif
     @include('core::admin._lang-switcher', ['js' => true])
+    @include('core::admin._versioning', ['js' => true])
 </div>

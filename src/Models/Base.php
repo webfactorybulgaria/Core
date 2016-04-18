@@ -14,7 +14,6 @@ use TypiCMS\Modules\Core\Traits\HtmlCacheEvents;
 abstract class Base extends Model
 {
     use HtmlCacheEvents;
-
     /**
      * Get preview uri.
      *

@@ -5,6 +5,7 @@
 @section('main')
 
     @include('core::admin._button-back', ['table' => $model->getTable()])
+
     <h1 class="@if(!$model->present()->title)text-muted @endif">{{ $model->present()->title ?: trans('core::global.Untitled') }}</h1>
 
     {!! BootForm::open()->put()->action(route('admin.' . $model->getTable() . '.update', $model->id))->multipart()->role('form') !!}
