@@ -10,6 +10,6 @@
 
     <div class="made-by-wf">
         <span>Made by </span>
-        <a href="http://webfactory.bg/" title="Webdesign & development by Webfactory" target="_blank"><img src="/uploads/settings/WF_Logo.svg" alt="webfactory" width="40"></a>
+        <a href="http://webfactory.bg/" title="Webdesign & development by Webfactory" target="_blank"><img src="/uploads/WF_Logo.svg" alt="webfactory" width="40"></a>
     </div>
 </div>
