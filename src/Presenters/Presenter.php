@@ -4,6 +4,7 @@ namespace TypiCMS\Modules\Core\Presenters;
 
 use Carbon\Carbon;
 use Croppa;
+use Config;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
@@ -165,6 +166,8 @@ abstract class Presenter extends BasePresenter
         $src = $this->getPath($this->entity, $field);
         if (!is_file(public_path().$src)) {
             $src = $this->imgNotFound();
+        } else if (!preg_match('#'.Config::get('croppa.path').'#', $src)) {
+            return $src;
         }
 
         return Croppa::url($src, $width, $height, $options);
