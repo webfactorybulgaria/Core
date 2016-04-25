@@ -53,7 +53,7 @@ class Publish extends Command
     public function fire()
     {
         $module = strtolower($this->argument('module'));
-        if (!is_dir(base_path('vendor/typicms/'.$module))) {
+        if (!is_dir(base_path('vendor/webfactorybulgaria/'.$module))) {
             throw new Exception('Module “'.$module.'” not found in vendor directory.');
         }
         $provider = 'TypiCMS\Modules\\'.ucfirst($module).'\Providers\ModuleProvider';
