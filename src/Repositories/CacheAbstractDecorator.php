@@ -378,7 +378,7 @@ abstract class CacheAbstractDecorator implements RepositoryInterface
      *
      * @return mixed Model or false on error during save
      */
-    public function create(array $data)
+    public function create(array $data, array $syncTables = [])
     {
         $this->cache->flush();
         $this->cache->flush('dashboard');
@@ -393,7 +393,7 @@ abstract class CacheAbstractDecorator implements RepositoryInterface
      *
      * @return bool
      */
-    public function update(array $data)
+    public function update(array $data, array $syncTables = [])
     {
         $this->cache->flush();
 

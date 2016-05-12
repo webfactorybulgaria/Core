@@ -332,15 +332,21 @@ abstract class RepositoriesAbstract implements RepositoryInterface
      *
      * @return mixed Model or false on error during save
      */
-    public function create(array $data)
+    public function create(array $data, array $syncTables = [])
     {
         // Create the model
         $model = $this->model->fill($data);
 
         if ($model->save()) {
-            $this->syncRelation($model, $data, 'galleries');
+
+            array_push($syncTables, 'galleries');
+
+            foreach ($syncTables as $table) {
+                $this->syncRelation($model, $data, $table);
+            }
 
             return $model;
+
         }
 
         return false;
@@ -353,13 +359,17 @@ abstract class RepositoriesAbstract implements RepositoryInterface
      *
      * @return bool
      */
-    public function update(array $data)
+    public function update(array $data, array $syncTables = [])
     {
         $model = $this->model->find($data['id']);
 
         $model->fill($data);
 
-        $this->syncRelation($model, $data, 'galleries');
+        array_push($syncTables, 'galleries');
+
+        foreach ($syncTables as $table) {
+            $this->syncRelation($model, $data, $table);
+        }
 
         if ($model->save()) {
             return true;
