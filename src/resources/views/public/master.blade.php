@@ -9,6 +9,7 @@
     <title>@yield('title')</title>
     <meta name="description" content="@yield('description')">
     <meta name="keywords" content="@yield('keywords')">
+    @yield('meta_tags')
 
     <meta property="og:site_name" content="{{ $websiteTitle }}">
     <meta property="og:title" content="@yield('ogTitle')">

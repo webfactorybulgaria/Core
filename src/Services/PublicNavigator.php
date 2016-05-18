@@ -6,14 +6,19 @@ use Illuminate\Support\Facades\Request;
 class PublicNavigator
 {
     private $controller;
-    public function __construct($controller)
+
+    public function setController($controller)
     {
         $this->controller = $controller;
     }
 
     public function currentModule()
     {
-        return $this->controller->module;
+        if (!empty($this->controller)) {
+            return $this->controller->module;
+        }
+
+        return null;
     }
 
     public function currentPage()
