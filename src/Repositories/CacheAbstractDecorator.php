@@ -397,7 +397,7 @@ abstract class CacheAbstractDecorator implements RepositoryInterface
     {
         $this->cache->flush();
 
-        return $this->repo->update($data);
+        return $this->repo->update($data, $syncTables);
     }
 
     /**

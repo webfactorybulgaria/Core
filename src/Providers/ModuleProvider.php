@@ -4,6 +4,7 @@ namespace TypiCMS\Modules\Core\Providers;
 
 use Exception;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
@@ -14,6 +15,7 @@ use TypiCMS\Modules\Core\Commands\Database;
 use TypiCMS\Modules\Core\Commands\Install;
 use TypiCMS\Modules\Core\Commands\Publish;
 use TypiCMS\Modules\Core\Services\TypiCMS;
+use TypiCMS\Modules\Core\Services\PublicNavigator;
 use TypiCMS\Modules\Core\Services\Upload\FileUpload;
 use TypiCMS\Modules\Users\Models\User;
 use TypiCMS\Modules\Users\Repositories\EloquentUser;
@@ -40,6 +42,11 @@ class ModuleProvider extends ServiceProvider
             __DIR__.'/../resources/views'        => base_path('resources/views/vendor/core'),
             __DIR__.'/../resources/views/errors' => base_path('resources/views/errors'),
         ], 'views');
+
+        AliasLoader::getInstance()->alias(
+            'Navigator',
+            'TypiCMS\Modules\Core\Facades\PublicNavigator'
+        );
 
         // translations
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'core');
@@ -94,6 +101,15 @@ class ModuleProvider extends ServiceProvider
         */
         $this->app->singleton('upload.file', function () {
             return new FileUpload();
+        });
+
+        /*
+        |--------------------------------------------------------------------------
+        | Navigation utilities.
+        |--------------------------------------------------------------------------
+        */
+        $this->app->singleton('public.navigator', function() {
+            return new PublicNavigator();
         });
 
         /*
