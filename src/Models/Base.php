@@ -79,15 +79,11 @@ abstract class Base extends Model
     public function scopeOnline(Builder $query)
     {
         if (method_exists($this, 'translations')) {
-            return $query->whereHas(
-                'translations',
-                function (Builder $query) {
-                    if (!Request::input('preview')) {
-                        $query->where('status', 1);
-                    }
-                    $query->where('locale', config('app.locale'));
-                }
-            );
+            if (!Request::input('preview')) {
+                $query->where('status', 1);
+            }
+            $query->where('locale', config('app.locale'));
+            return $query;
         } else {
             return $query->where('status', 1);
         }
@@ -139,28 +135,6 @@ abstract class Base extends Model
         }
 
         return $query;
-    }
-
-    /**
-     * Get title attribute from translation table
-     * and append it to main model attributes.
-     *
-     * @return string title
-     */
-    public function getTitleAttribute($value)
-    {
-        return $this->title;
-    }
-
-    /**
-     * Get status attribute from translation table
-     * and append it to main model attributes.
-     *
-     * @return string title
-     */
-    public function getStatusAttribute($value)
-    {
-        return $this->status;
     }
 
     /**

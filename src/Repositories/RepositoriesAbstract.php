@@ -41,12 +41,6 @@ abstract class RepositoriesAbstract implements RepositoryInterface
      */
     public function make(array $with = [])
     {
-        if (method_exists($this->model, 'translations')) {
-            if (!in_array('translations', $with)) {
-                $with[] = 'translations';
-            }
-        }
-
         return $this->model->with($with);
     }
 
@@ -168,13 +162,10 @@ abstract class RepositoriesAbstract implements RepositoryInterface
             $query->online();
         }
 
-        $totalItems = $query->count();
+        $models = $query->order()
+            ->paginate($limit);
 
-        $query->order()
-            ->skip($limit * ($page - 1))
-            ->take($limit);
-
-        $models = $query->get();
+        $totalItems = $models->total();
 
         // Put items and totalItems in stdClass
         $result->totalItems = $totalItems;
@@ -291,8 +282,7 @@ abstract class RepositoriesAbstract implements RepositoryInterface
     public function bySlug($slug, array $with = [])
     {
         $model = $this->make($with)
-            ->whereHas(
-                'translations',
+            ->where(
                 function (Builder $query) use ($slug) {
                     if (!Request::input('preview')) {
                         $query->where('status', 1);
@@ -302,10 +292,6 @@ abstract class RepositoriesAbstract implements RepositoryInterface
                 }
             )
             ->firstOrFail();
-
-        if (!count($model->translations)) {
-            abort(404);
-        }
 
         return $model;
     }
