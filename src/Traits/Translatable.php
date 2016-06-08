@@ -27,4 +27,44 @@ trait Translatable
         return $this->getQualifiedKeyName();
     }
 
+
+    /**
+     * Removes the default translatable toArray functionality as it is not needed anymore
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return parent::toArray();
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return mixed
+     */
+    public function getAttribute($key)
+    {
+        return parent::getAttribute($key);
+    }
+
+    public function hasTranslation($locale = null)
+    {
+        if ($locale && ($locale != config('app.locale'))) {
+
+            $locale = $locale ?: $this->locale();
+
+            foreach ($this->translations as $translation) {
+                if ($translation->getAttribute($this->getLocaleKey()) == $locale) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        $field = $this->translatedAttributes[0];
+
+        return $this->$field !== null;
+    }
 }

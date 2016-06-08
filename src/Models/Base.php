@@ -56,14 +56,8 @@ abstract class Base extends Model
     {
         return $query->with(
             ['files' => function (Builder $query) use ($all) {
-                $query->with(['translations' => function (Builder $query) use ($all) {
-                    $query->where('locale', config('app.locale'));
-                    !$all && $query->where('status', 1);
-                }]);
-                $query->whereHas('translations', function (Builder $query) use ($all) {
-                    $query->where('locale', config('app.locale'));
-                    !$all && $query->where('status', 1);
-                });
+                if ($all)
+                    $query->online();
                 $query->orderBy('position', 'asc');
             }]
         );
@@ -104,16 +98,9 @@ abstract class Base extends Model
 
         return $query->with(
             [
-                'galleries.translations',
-                'galleries.files.translations',
+                'galleries.files',
                 'galleries' => function (MorphToMany $query) {
-                    $query->whereHas(
-                        'translations',
-                        function (Builder $query) {
-                            $query->where('status', 1);
-                            $query->where('locale', config('app.locale'));
-                        }
-                    );
+                    $query->online();
                 },
             ]
         );
