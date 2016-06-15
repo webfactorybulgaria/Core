@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
-class PublicLocale
+class SetLocale
 {
     /**
      * Handle an incoming request.
@@ -20,19 +20,14 @@ class PublicLocale
      */
     public function handle(Request $request, Closure $next)
     {
-        $locale = $this->getLocaleFromDomainName();
+        $locale = config('app.locale');
         $firstSegment = $request->segment(1);
-
-        if (!$locale) {
-            $locale = config('app.locale');
-            if (in_array($firstSegment, config('translatable.locales'))) {
-                $locale = $firstSegment;
-            }
+        if (in_array($firstSegment, config('translatable.locales'))) {
+            $locale = $firstSegment;
+            App::setLocale($locale);
         }
 
-        App::setlocale($locale);
-
-        // Not very reliable, need to be refactored
+        // Not reliable, to be refactored.
         $localeAndCountry = $locale.'_'.strtoupper($locale);
 
         setlocale(LC_ALL, $localeAndCountry.'.utf8', $localeAndCountry.'.utf-8', $localeAndCountry);
@@ -48,27 +43,5 @@ class PublicLocale
         }
 
         return $next($request);
-    }
-
-    /**
-     * Get the front office locale.
-     *
-     * @return string|false
-     */
-    private function getLocaleFromDomainName()
-    {
-        $baseUrl = explode('/', url('/'));
-        $domainName = end($baseUrl);
-        $domainNames = [];
-        foreach (config('translatable.locales') as $locale) {
-            $domainNames[$locale] = config('typicms.translated_domains.'.$locale);
-        }
-
-        $found = array_keys($domainNames, $domainName);
-        if (count($found) == 1) {
-            return reset($found);
-        }
-
-        return false;
     }
 }

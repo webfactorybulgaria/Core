@@ -13,7 +13,6 @@ trait HtmlCacheEvents
      */
     public static function bootHtmlCacheEvents()
     {
-
         if (config('typicms.html_cache')) {
             static::saved(function ($model) {
                 Artisan::call('clear-html');

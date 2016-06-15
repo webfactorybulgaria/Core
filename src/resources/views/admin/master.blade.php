@@ -14,10 +14,10 @@
 
 </head>
 
-<body class="@if (Auth::user())has-navbar @endif @yield('bodyClass')">
+<body class="@if(auth()->user())has-navbar @endif @yield('bodyClass')">
 
 @section('navbar')
-    @if (Auth::user())
+    @if (auth()->user())
         @include('core::_navbar')
     @endif
 @show
@@ -59,7 +59,7 @@
         <script src="@if(app()->environment('production')){{ asset(elixir('js/admin/components.min.js')) }}@else{{ asset('js/admin/components.min.js') }}@endif"></script>
 
         @if(config('typicms.admin_locale') != 'en')
-            <script src="{{ asset('js/angular-locales/angular-locale_' . config('typicms.admin_locale') . '-' . config('typicms.admin_locale') . '.js') }}"></script>
+            <script src="{{ asset('js/angular-locales/angular-locale_'.config('typicms.admin_locale').'-'.config('typicms.admin_locale').'.js') }}"></script>
         @endif
 
         @yield('js')

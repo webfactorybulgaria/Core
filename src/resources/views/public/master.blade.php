@@ -20,6 +20,8 @@
 
     <link href="{{ app()->isLocal() ? asset('css/public.css') : asset(elixir('css/public.css')) }}" rel="stylesheet">
 
+    @include('core::public._feed-links')
+
     @yield('css')
 
     @if(app()->environment('production') and config('typicms.google_analytics_code'))
@@ -37,16 +39,14 @@
 
 </head>
 
-<body class="body-{{ $lang }} @yield('bodyClass') @if(Auth::user() and Auth::user()->hasRole('Admin') and ! Request::input('preview'))has-navbar @endif">
+<body class="body-{{ $lang }} @yield('bodyClass') @if($navbar)has-navbar @endif">
 
     @section('skip-links')
     <a href="#main" class="skip-to-content">@lang('db.Skip to content')</a>
     <a href="#site-nav" class="btn-offcanvas" data-toggle="offcanvas" title="@lang('db.Open navigation')" aria-label="@lang('db.Open navigation')" role="button" aria-controls="navigation" aria-expanded="false"><span class="fa fa-bars fa-fw" aria-hidden="true"></span></a>
     @show
 
-@if(Auth::user() and Auth::user()->hasRole('Admin') and ! Request::input('preview'))
     @include('core::_navbar')
-@endif
 
     <div class="site-container" id="main" role="main">
 

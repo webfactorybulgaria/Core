@@ -125,17 +125,6 @@ abstract class Base extends Model
     }
 
     /**
-     * Get status attribute from translation table
-     * and append it to main model attributes.
-     *
-     * @return string title
-     */
-    public function getThumbAttribute($value)
-    {
-        return $this->present()->thumbSrc(null, 22);
-    }
-
-    /**
      * A model has many tags.
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
@@ -155,7 +144,7 @@ abstract class Base extends Model
     public function editUrl()
     {
         try {
-            return route('admin.'.$this->getTable().'.edit', $this->id);
+            return route('admin::edit-'.str_singular($this->getTable()), $this->id);
         } catch (InvalidArgumentException $e) {
             Log::error($e->getMessage());
         }
@@ -169,7 +158,7 @@ abstract class Base extends Model
     public function indexUrl()
     {
         try {
-            return route('admin.'.$this->getTable().'.index');
+            return route('admin::index-'.$this->getTable());
         } catch (InvalidArgumentException $e) {
             Log::error($e->getMessage());
         }

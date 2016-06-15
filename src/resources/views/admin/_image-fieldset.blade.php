@@ -2,7 +2,7 @@
             <div class="fieldset-preview">
                 @if($model->$field)
                     {!! $model->present()->thumb(150, 150, ['resize'], $field) !!}
-                    <small class="text-danger delete-attachment" data-table="{{ $model->getTable() }}" data-id="{{ $model->id }}" data-field="{{ $field }}">Delete</small>
+                    <small class="text-danger delete-attachment" data-table="{{ $model->getTable() }}" data-id="{{ $model->id }}" data-field="{{ $field }}">@lang('global.Delete')</small>
                 @endif
             </div>
             <div class="fieldset-field">

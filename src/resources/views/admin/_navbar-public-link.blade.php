@@ -1,6 +1,6 @@
 @if (isset($model) and $model->id)
 <a href="{{ TypiCMS::isLocaleOnline($locale) ? url($model->uri($locale)) : url($model->uri()) }}">
-@elseif (isset($module) and Route::has($locale.'.'.$module))
+@elseif ($module = Request::segment(2) and Route::has($locale.'.'.$module))
 <a href="{{ route($locale.'.'.$module) }}">
 @else
 <a href="{{ url('/') }}">
