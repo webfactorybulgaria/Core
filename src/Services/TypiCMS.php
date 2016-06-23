@@ -8,19 +8,31 @@ use Illuminate\Support\Facades\Route;
 
 class TypiCMS
 {
+
     /**
      * Get Homepage URL.
      *
      * @return string
      */
-    public function homeUrl()
+    public function homeUri($locale = null)
     {
         $uri = '/';
-        if (config('typicms.main_locale_in_url') || config('app.fallback_locale') != config('app.locale')) {
-            $uri .= config('app.locale');
+        if (!$locale) $locale = config('app.locale');
+        if (config('typicms.main_locale_in_url') || config('app.fallback_locale') != $locale) {
+            $uri .= $locale;
         }
 
-        return url($uri);
+        return $uri;
+    }
+
+    /**
+     * Get Homepage URL.
+     *
+     * @return string
+     */
+    public function homeUrl($locale = null)
+    {
+        return url($this->homeUri($locale));
     }
 
     /**
