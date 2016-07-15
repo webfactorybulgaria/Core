@@ -47,6 +47,10 @@ class ModuleProvider extends ServiceProvider
             'Navigator',
             'TypiCMS\Modules\Core\Facades\PublicNavigator'
         );
+        AliasLoader::getInstance()->alias(
+            'TableList',
+            'TypiCMS\Modules\Core\Facades\TableList'
+        );
 
         // translations
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'core');
@@ -133,6 +137,7 @@ class ModuleProvider extends ServiceProvider
         $this->registerCommands();
         $this->registerModuleRoutes();
         $this->registerCoreModules();
+        $this->registerTableList();
     }
 
     /**
@@ -216,5 +221,15 @@ class ModuleProvider extends ServiceProvider
         $app->register(\TypiCMS\Modules\Sitemap\Providers\ModuleProvider::class);
         // Pages module needs to be at last for routing to work.
         $app->register(\TypiCMS\Modules\Pages\Providers\ModuleProvider::class);
+    }
+
+    /**
+     * Register the table list service.
+     *
+     * @return void
+     */
+    public function registerTableList()
+    {
+        $this->app->bind('table.list', \TypiCMS\Modules\Core\Services\TableList\SmartTableList::class);
     }
 }

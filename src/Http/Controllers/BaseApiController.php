@@ -3,6 +3,8 @@
 namespace TypiCMS\Modules\Core\Http\Controllers;
 
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Request;
+use TableList;
 
 abstract class BaseApiController extends Controller
 {
@@ -24,9 +26,26 @@ abstract class BaseApiController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+
+    public function index($builder = null)
     {
-        $models = $this->repository->all([], true);
+        $request = Request::all();
+
+        if (!empty($request["tableState"])) { // TODO - a factory here would be nice
+            $builder = $builder ?: $this->repository->getModel()->query();
+
+            $list = TableList::apply($builder);
+            $perPage = $list->getPerPage();
+
+            $models = $builder->paginate($perPage);
+
+        } else {
+            $all = $this->repository->all([], true);
+            $models['data'] = $all;
+
+        }
+
+        $models = [$models];
 
         return response()->json($models, 200);
     }
@@ -54,4 +73,5 @@ abstract class BaseApiController extends Controller
     {
         return response()->json($model, 200);
     }
+
 }
