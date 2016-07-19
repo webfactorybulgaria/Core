@@ -24,10 +24,12 @@ class SmartTableList
     {
         $request = Request::all();
         $tableState = json_decode($request["tableState"]);
-        $perPage = $tableState->pagination->number ?: 20;
-        Request::replace(['page' => round($tableState->pagination->start / $perPage + 1)]);
+        if ($tableState->pagination) {
+            $perPage = !empty($tableState->pagination->number) ? $tableState->pagination->number : 20;
+            Request::replace(['page' => round($tableState->pagination->start / $perPage + 1)]);
 
-        $this->perPage = $perPage;
+            $this->perPage = $perPage;            
+        }
     }
 
     protected function dateFilter($field, $value)
