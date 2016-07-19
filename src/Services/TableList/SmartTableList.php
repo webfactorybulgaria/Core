@@ -47,6 +47,11 @@ class SmartTableList
         $this->builder->where($field, '=', $value == 'true' ? true : false);
     }
 
+    protected function intFilter($field, $value)
+    {
+        $this->builder->where($field, '=', $value);
+    }
+
     public function applyTableStateSearch($tableState)
     {
         // Filtering
