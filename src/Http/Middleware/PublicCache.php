@@ -27,7 +27,6 @@ class PublicCache
             !$response->isRedirection() &&
             $request->isMethod('get') &&
             !Auth::check() &&
-            $this->queryStringIsEmptyOrOnlyPage($request) &&
             !config('app.debug') &&
             config('typicms.html_cache')
         ) {
@@ -38,7 +37,7 @@ class PublicCache
             if (!File::isDirectory($directory)) {
                 File::makeDirectory($directory, 0777, true);
             }
-            File::put($directory.'/index'.$request->getQueryString().'.html', $response->content());
+            File::put($directory . '/index' . ($request->getQueryString() ? md5($request->getQueryString()) : '') . '.html', $response->content());
         }
 
         return $response;
@@ -56,23 +55,4 @@ class PublicCache
         return !$response->original->page || isset($response->original->page) && $response->original->page->no_cache;
     }
 
-    /**
-     * Return false if there is query param other than page=.
-     *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return bool
-     */
-    private function queryStringIsEmptyOrOnlyPage(Request $request)
-    {
-        $nbInputs = count($request->input());
-        if ($nbInputs == 0) {
-            return true;
-        }
-        if ($request->input('page') && $nbInputs == 1) {
-            return true;
-        }
-
-        return false;
-    }
 }
