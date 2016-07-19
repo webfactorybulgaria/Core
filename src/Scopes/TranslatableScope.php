@@ -33,7 +33,7 @@ class TranslatableScope implements Scope
     public function apply(Builder $builder, Eloquent $model)
     {
         $this->table = $model->getTable();
-        $this->locale = config('app.locale');
+        $this->locale = config('translatable.locale') ?: config('app.locale');
         
         $translationModelName = $model->getTranslationModelName();
         $translationModel = new $translationModelName;
