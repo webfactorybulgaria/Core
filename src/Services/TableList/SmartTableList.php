@@ -66,6 +66,16 @@ class SmartTableList
                             $this->$method($field, $value);
                         }
                     }
+                } else if ($field == '$') {
+                    // global search in all translatable fields
+                    if(!empty($fields = $this->builder->getModel()->translatedAttributes)) {
+                        $query = $this->builder->getModel();
+                        $this->builder->where(function($query) use ($fields, $search) {
+                            foreach ($fields as $field) {
+                                $query->orwhere($field, 'LIKE', '%' . $search . '%');
+                            }
+                        });
+                    }
                 } else {
                     $this->builder->where($field, 'LIKE', '%' . $search . '%');
                 }
