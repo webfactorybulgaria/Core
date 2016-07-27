@@ -28,7 +28,7 @@
                         <div class="dropdown-menu dropdown-user">
                             <div class="img pull-left">
                                 <span class="fa fa-user"></span>
-                                {{--<img src="https://www.gravatar.com/avatar/{{ md5(Auth::user()->email) }}" class="pull-left">--}}
+                                {{--<img src="https://www.gravatar.com/avatar/{{ md5(Auth::user()->email) }}?d=mm" class="pull-left">--}}
                             </div>
                             <div class="info">
                                 <p>{{ auth()->user()->email }}</p>
