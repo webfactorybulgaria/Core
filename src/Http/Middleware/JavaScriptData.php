@@ -34,6 +34,7 @@ class JavaScriptData
             '_token'          => csrf_token(),
             'encrypted_token' => Crypt::encrypt(csrf_token()),
             'locales'         => $locales,
+            'options'         => new \stdClass,
         ]);
 
         return $next($request);

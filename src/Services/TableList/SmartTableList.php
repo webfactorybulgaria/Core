@@ -47,6 +47,11 @@ class SmartTableList
         $this->builder->where($field, '=', $value == 'true' ? true : false);
     }
 
+    protected function intFilter($field, $value)
+    {
+        $this->builder->where($field, '=', $value);
+    }
+
     public function applyTableStateSearch($tableState)
     {
         // Filtering
@@ -60,6 +65,16 @@ class SmartTableList
                         if (method_exists($this, $method)) {
                             $this->$method($field, $value);
                         }
+                    }
+                } else if ($field == '$') {
+                    // global search in all translatable fields
+                    if(!empty($fields = $this->builder->getModel()->translatedAttributes)) {
+                        $query = $this->builder->getModel();
+                        $this->builder->where(function($query) use ($fields, $search) {
+                            foreach ($fields as $field) {
+                                $query->orwhere($field, 'LIKE', '%' . $search . '%');
+                            }
+                        });
                     }
                 } else {
                     $this->builder->where($field, 'LIKE', '%' . $search . '%');
