@@ -4,6 +4,7 @@ namespace TypiCMS\Modules\Core\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Routing\Router;
+use URL;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -30,6 +31,33 @@ class RouteServiceProvider extends ServiceProvider
              * Admin routes
              */
             $router->get('admin/_locale/{locale}', 'LocaleController@setContentLocale')->name('admin::change-locale');
+        });
+
+        /*
+         * Api routes
+         */
+        $router->get('admin/duplicate/{alias}/{resource}', function($alias, $resource) {
+
+            $repository = app(ucfirst($alias));
+            $oldItem = $repository::make()->skip()->find($resource);
+            $newItem = $oldItem->replicate();
+
+
+            if(isset($newItem->system_name)) $newItem->system_name .= ' (copy)';
+            unset($newItem->translations);
+            unset($newItem->translatedAttributes);
+            dd($newItem->getAttributes());
+            $newItem = $newItem->create($newItem->getAttributes());
+
+            foreach ($oldItem->translations as $translation) {
+                $parent_id = $oldItem->getRelationKey();
+                $translation->{$parent_id} = $newItem->id;
+                if(isset($translation->title)) $translation->title .= ' (copy)';
+                $translation = $translation->replicate();
+                $translation->save();
+            }
+
+            return redirect(URL::previous());
         });
     }
 }
