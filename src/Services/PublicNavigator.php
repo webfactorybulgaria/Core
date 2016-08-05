@@ -40,7 +40,7 @@ class PublicNavigator
     */
     public function pathToRoot()
     {
-        $eloquentPage = app('TypiCMS\Modules\Pages\Repositories\PageInterface');
+        $eloquentPage = app('TypiCMS\Modules\Pages\Custom\Repositories\PageInterface');
         $arrParents = $eloquentPage->allForTreeMap();
 
         $path = [];

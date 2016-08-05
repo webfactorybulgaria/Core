@@ -3,7 +3,7 @@
 namespace TypiCMS\Modules\Core\Traits;
 
 use Dimsav\Translatable\Translatable as BaseTranslatable;
-use TypiCMS\Modules\Core\Scopes\TranslatableScope;
+use TypiCMS\Modules\Core\Custom\Scopes\TranslatableScope;
 
 trait Translatable
 {

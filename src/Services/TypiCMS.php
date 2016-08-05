@@ -119,7 +119,7 @@ class TypiCMS
      *
      * @param string $module
      *
-     * @return \TypiCMS\Modules\Pages\Models\Page
+     * @return \TypiCMS\Modules\Pages\Custom\Models\Page
      */
     public function getPageLinkedToModule($module = null)
     {
