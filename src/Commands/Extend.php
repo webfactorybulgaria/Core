@@ -64,15 +64,10 @@ class Extend extends Command
         if (!is_dir(base_path('vendor/webfactorybulgaria/'.strtolower($this->module)))) {
             throw new Exception('Module “'.$this->module.'” not found in vendor directory.');
         }
-        $provider = 'TypiCMS\Modules\\'.$this->module.'\Providers\ModuleProvider';
-        if (class_exists($provider)) {
-            $this->publishModule();
-            $this->rebuildBaseClasses();
-            $this->publishModule('/Custom');
-            $this->buildCustomClasses();
-        } else {
-            throw new Exception($provider.' not found, did you add it to config/app.php?');
-        }
+        $this->publishModule();
+        $this->rebuildBaseClasses();
+        $this->publishModule('/Custom');
+        $this->buildCustomClasses();
     }
 
     /**
@@ -180,7 +175,7 @@ class Extend extends Command
 
                         $implementsUseLine = '';
                         $implements = '';
-                        if ($additional = $matches[2]) {
+                        if ($additional = $matches[3]) {
                             if (preg_match('|implements +(\w+)|', $additional, $matches)) {
                                 //dd($matches);
                                 $implements = $matches[1];
@@ -201,13 +196,12 @@ $content = '<?php
 
 namespace '.$namespace.';
 
-use '.$baseNamespace.'\\'.$classname.' as Base;
+use '.$baseNamespace.'\\'.$classname.' as BaseClass;
 '.($implementsUseLine ? $implementsUseLine . "\n" : '').'
-'.$structureType.' ' . $classname .' extends Base' . ($implements ? ' implements ' . $implements : '') . '
+'.$structureType.' ' . $classname .' extends BaseClass' . ($implements ? ' implements ' . $implements : '') . '
 {
 
 }
-
 ';
 
                         $manager->put('directory://'.$file['path'], $content);
