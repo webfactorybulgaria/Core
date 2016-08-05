@@ -60,7 +60,6 @@ class Publish extends Command
         if (class_exists($provider)) {
             $this->call('vendor:publish', ['--provider' => $provider]);
             $this->publishModule($module);
-            $this->uninstallFromComposer($module);
         } else {
             throw new Exception($provider.' not found, did you add it to config/app.php?');
         }
@@ -75,8 +74,8 @@ class Publish extends Command
      */
     private function publishModule($module)
     {
-        $from = base_path('vendor/webfactorybulgaria/'.$module.'/src');
-        $to = base_path('Modules/'.ucfirst($module));
+        $from = base_path('vendor/webfactorybulgaria/'.$module.'/src/Custom');
+        $to = base_path('Modules/'.ucfirst($module).'.Custom');
 
         if ($this->files->isDirectory($from)) {
             $this->publishDirectory($from, $to);

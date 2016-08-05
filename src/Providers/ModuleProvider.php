@@ -14,6 +14,7 @@ use TypiCMS\Modules\Core\Commands\Create;
 use TypiCMS\Modules\Core\Commands\Database;
 use TypiCMS\Modules\Core\Commands\Install;
 use TypiCMS\Modules\Core\Commands\Publish;
+use TypiCMS\Modules\Core\Commands\Extend;
 use TypiCMS\Modules\Core\Services\TypiCMS;
 use TypiCMS\Modules\Core\Services\PublicNavigator;
 use TypiCMS\Modules\Core\Services\Upload\FileUpload;
@@ -66,6 +67,7 @@ class ModuleProvider extends ServiceProvider
         $this->commands('command.database');
         $this->commands('command.install');
         $this->commands('command.publish');
+        $this->commands('command.extend');
     }
 
     /**
@@ -179,6 +181,11 @@ class ModuleProvider extends ServiceProvider
         });
         $this->app->bind('command.publish', function () {
             return new Publish(
+                new Filesystem()
+            );
+        });
+        $this->app->bind('command.extend', function () {
+            return new Extend(
                 new Filesystem()
             );
         });
