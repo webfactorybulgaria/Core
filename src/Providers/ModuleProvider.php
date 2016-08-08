@@ -8,18 +8,18 @@ use Illuminate\Foundation\AliasLoader;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
-use TypiCMS\Modules\Core\Custom\Commands\CacheKeyPrefix;
-use TypiCMS\Modules\Core\Custom\Commands\ClearHtml;
-use TypiCMS\Modules\Core\Custom\Commands\Create;
-use TypiCMS\Modules\Core\Custom\Commands\Database;
-use TypiCMS\Modules\Core\Custom\Commands\Install;
-use TypiCMS\Modules\Core\Custom\Commands\Publish;
-use TypiCMS\Modules\Core\Custom\Commands\Extend;
-use TypiCMS\Modules\Core\Custom\Services\TypiCMS;
-use TypiCMS\Modules\Core\Custom\Services\PublicNavigator;
-use TypiCMS\Modules\Core\Custom\Services\Upload\FileUpload;
-use TypiCMS\Modules\Users\Custom\Models\User;
-use TypiCMS\Modules\Users\Custom\Repositories\EloquentUser;
+use TypiCMS\Modules\Core\Shells\Commands\CacheKeyPrefix;
+use TypiCMS\Modules\Core\Shells\Commands\ClearHtml;
+use TypiCMS\Modules\Core\Shells\Commands\Create;
+use TypiCMS\Modules\Core\Shells\Commands\Database;
+use TypiCMS\Modules\Core\Shells\Commands\Install;
+use TypiCMS\Modules\Core\Shells\Commands\Publish;
+use TypiCMS\Modules\Core\Shells\Commands\Extend;
+use TypiCMS\Modules\Core\Shells\Services\TypiCMS;
+use TypiCMS\Modules\Core\Shells\Services\PublicNavigator;
+use TypiCMS\Modules\Core\Shells\Services\Upload\FileUpload;
+use TypiCMS\Modules\Users\Shells\Models\User;
+use TypiCMS\Modules\Users\Shells\Repositories\EloquentUser;
 
 class ModuleProvider extends ServiceProvider
 {
@@ -46,11 +46,11 @@ class ModuleProvider extends ServiceProvider
 
         AliasLoader::getInstance()->alias(
             'Navigator',
-            'TypiCMS\Modules\Core\Custom\Facades\PublicNavigator'
+            'TypiCMS\Modules\Core\Shells\Facades\PublicNavigator'
         );
         AliasLoader::getInstance()->alias(
             'TableList',
-            'TypiCMS\Modules\Core\Custom\Facades\TableList'
+            'TypiCMS\Modules\Core\Shells\Facades\TableList'
         );
 
         // translations
@@ -82,7 +82,7 @@ class ModuleProvider extends ServiceProvider
         /*
          * Register route service provider
          */
-        $app->register(\TypiCMS\Modules\Core\Custom\Providers\RouteServiceProvider::class);
+        $app->register(\TypiCMS\Modules\Core\Shells\Providers\RouteServiceProvider::class);
 
         /*
         |--------------------------------------------------------------------------
@@ -123,7 +123,7 @@ class ModuleProvider extends ServiceProvider
         | Sidebar view creator.
         |--------------------------------------------------------------------------
         */
-        $app->view->creator('core::admin._sidebar', \TypiCMS\Modules\Core\Custom\Composers\SidebarViewCreator::class);
+        $app->view->creator('core::admin._sidebar', \TypiCMS\Modules\Core\Shells\Composers\SidebarViewCreator::class);
 
         /*
         |--------------------------------------------------------------------------
@@ -131,9 +131,9 @@ class ModuleProvider extends ServiceProvider
         |--------------------------------------------------------------------------
         */
         $app->view->composers([
-            \TypiCMS\Modules\Core\Custom\Composers\MasterViewComposer::class => '*',
-            \TypiCMS\Modules\Core\Custom\Composers\LocaleComposer::class     => '*::public.*',
-            \TypiCMS\Modules\Core\Custom\Composers\LocalesComposer::class    => '*::admin.*',
+            \TypiCMS\Modules\Core\Shells\Composers\MasterViewComposer::class => '*',
+            \TypiCMS\Modules\Core\Shells\Composers\LocaleComposer::class     => '*::public.*',
+            \TypiCMS\Modules\Core\Shells\Composers\LocalesComposer::class    => '*::admin.*',
         ]);
 
         $this->registerCommands();
@@ -200,7 +200,7 @@ class ModuleProvider extends ServiceProvider
     {
         $this->app->singleton('typicms.routes', function (Application $app) {
             try {
-                return $app->make(\TypiCMS\Modules\Pages\Custom\Repositories\PageInterface::class)->getForRoutes();
+                return $app->make(\TypiCMS\Modules\Pages\Shells\Repositories\PageInterface::class)->getForRoutes();
             } catch (Exception $e) {
                 return [];
             }
@@ -215,19 +215,19 @@ class ModuleProvider extends ServiceProvider
     protected function registerCoreModules()
     {
         $app = $this->app;
-        $app->register(\TypiCMS\Modules\Translations\Custom\Providers\ModuleProvider::class);
-        $app->register(\TypiCMS\Modules\Blocks\Custom\Providers\ModuleProvider::class);
-        $app->register(\TypiCMS\Modules\Settings\Custom\Providers\ModuleProvider::class);
-        $app->register(\TypiCMS\Modules\History\Custom\Providers\ModuleProvider::class);
-        $app->register(\TypiCMS\Modules\Users\Custom\Providers\ModuleProvider::class);
-        $app->register(\TypiCMS\Modules\Roles\Custom\Providers\ModuleProvider::class);
-        $app->register(\TypiCMS\Modules\Files\Custom\Providers\ModuleProvider::class);
-        $app->register(\TypiCMS\Modules\Galleries\Custom\Providers\ModuleProvider::class);
-        $app->register(\TypiCMS\Modules\Dashboard\Custom\Providers\ModuleProvider::class);
-        $app->register(\TypiCMS\Modules\Menus\Custom\Providers\ModuleProvider::class);
-        $app->register(\TypiCMS\Modules\Sitemap\Custom\Providers\ModuleProvider::class);
+        $app->register(\TypiCMS\Modules\Translations\Shells\Providers\ModuleProvider::class);
+        $app->register(\TypiCMS\Modules\Blocks\Shells\Providers\ModuleProvider::class);
+        $app->register(\TypiCMS\Modules\Settings\Shells\Providers\ModuleProvider::class);
+        $app->register(\TypiCMS\Modules\History\Shells\Providers\ModuleProvider::class);
+        $app->register(\TypiCMS\Modules\Users\Shells\Providers\ModuleProvider::class);
+        $app->register(\TypiCMS\Modules\Roles\Shells\Providers\ModuleProvider::class);
+        $app->register(\TypiCMS\Modules\Files\Shells\Providers\ModuleProvider::class);
+        $app->register(\TypiCMS\Modules\Galleries\Shells\Providers\ModuleProvider::class);
+        $app->register(\TypiCMS\Modules\Dashboard\Shells\Providers\ModuleProvider::class);
+        $app->register(\TypiCMS\Modules\Menus\Shells\Providers\ModuleProvider::class);
+        $app->register(\TypiCMS\Modules\Sitemap\Shells\Providers\ModuleProvider::class);
         // Pages module needs to be at last for routing to work.
-        $app->register(\TypiCMS\Modules\Pages\Custom\Providers\ModuleProvider::class);
+        $app->register(\TypiCMS\Modules\Pages\Shells\Providers\ModuleProvider::class);
     }
 
     /**
@@ -237,6 +237,6 @@ class ModuleProvider extends ServiceProvider
      */
     public function registerTableList()
     {
-        $this->app->bind('table.list', \TypiCMS\Modules\Core\Custom\Services\TableList\SmartTableList::class);
+        $this->app->bind('table.list', \TypiCMS\Modules\Core\Shells\Services\TableList\SmartTableList::class);
     }
 }

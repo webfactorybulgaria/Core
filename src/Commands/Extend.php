@@ -192,6 +192,20 @@ class Extend extends Command
                             }
                         }
 
+if ($structureType == 'trait'){
+$content = '<?php
+
+namespace '.$namespace.';
+
+use '.$baseNamespace.'\\'.$classname.' as BaseClass;
+
+'.$structureType.' ' . $classname .'
+{
+    use Baseclass;
+}
+';
+
+} else {
 $content = '<?php
 
 namespace '.$namespace.';
@@ -203,6 +217,8 @@ use '.$baseNamespace.'\\'.$classname.' as BaseClass;
 
 }
 ';
+    
+}
 
                         $manager->put('directory://'.$file['path'], $content);
                     }

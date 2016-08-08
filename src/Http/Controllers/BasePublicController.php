@@ -4,7 +4,7 @@ namespace TypiCMS\Modules\Core\Http\Controllers;
 
 use Navigator;
 use Illuminate\Routing\Controller;
-use TypiCMS\Modules\Core\Custom\Services\PublicNavigator;
+use TypiCMS\Modules\Core\Shells\Services\PublicNavigator;
 
 abstract class BasePublicController extends Controller
 {
