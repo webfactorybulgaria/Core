@@ -58,7 +58,6 @@ class Publish extends Command
         }
         $provider = 'TypiCMS\Modules\\'.ucfirst($module).'\Providers\ModuleProvider';
         if (class_exists($provider)) {
-            $this->call('vendor:publish', ['--provider' => $provider]);
             $this->publishModule($module);
         } else {
             throw new Exception($provider.' not found, did you add it to config/app.php?');
