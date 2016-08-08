@@ -74,8 +74,8 @@ class Publish extends Command
      */
     private function publishModule($module)
     {
-        $from = base_path('vendor/webfactorybulgaria/'.$module.'/src/Custom');
-        $to = base_path('Modules/'.ucfirst($module).'/Custom');
+        $from = base_path('vendor/webfactorybulgaria/'.$module.'/src/Shells');
+        $to = base_path('Modules/'.ucfirst($module).'/Shells');
 
         if ($this->files->isDirectory($from)) {
             $this->publishDirectory($from, $to);
@@ -85,7 +85,7 @@ class Publish extends Command
 
         $this->info('Publishing complete for module ['.ucfirst($module).']!');
         $this->warn('You have to add this to your composer.json file in the psr-4 section:');
-        $this->warn('"TypiCMS\\\\Modules\\\\News\\\\Shells\\\\": "Modules/News/Custom/"');
+        $this->warn('"TypiCMS\\\\Modules\\\\News\\\\Shells\\\\": "Modules/News/Shells/"');
         $this->warn('Then run composer dumpautoload');
 
     }
