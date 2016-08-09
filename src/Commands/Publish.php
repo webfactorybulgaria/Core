@@ -56,7 +56,7 @@ class Publish extends Command
         if (!is_dir(base_path('vendor/webfactorybulgaria/'.$module))) {
             throw new Exception('Module “'.$module.'” not found in vendor directory.');
         }
-        $provider = 'TypiCMS\Modules\\'.ucfirst($module).'\Providers\ModuleProvider';
+        $provider = 'TypiCMS\Modules\\'.ucfirst($module).'\Providers\Shells\ModuleProvider';
         if (class_exists($provider)) {
             $this->publishModule($module);
         } else {

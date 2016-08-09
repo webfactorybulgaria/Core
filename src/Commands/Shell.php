@@ -121,7 +121,7 @@ class Shell extends Command
 
     /**
      * Search and remplace all occurences of 
-     * TypiCMS\Modules\<Module> to TypiCMS\Modules\<Module>\Custom
+     * TypiCMS\Modules\<Module> to TypiCMS\Modules\<Module>\Shells
      */
     public function rebuildBaseClasses()
     {
@@ -148,7 +148,7 @@ class Shell extends Command
 
     /**
      * Search and remplace all occurences of 
-     * TypiCMS\Modules\<Module> to TypiCMS\Modules\<Module>\Custom
+     * TypiCMS\Modules\<Module> to TypiCMS\Modules\<Module>\Shells
      */
     public function buildCustomClasses()
     {
