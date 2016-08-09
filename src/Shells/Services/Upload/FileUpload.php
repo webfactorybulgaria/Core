@@ -2,9 +2,9 @@
 
 namespace TypiCMS\Modules\Core\Shells\Services\Upload;
 
-use TypiCMS\Modules\Core\Services\Upload\FileUpload as Base;
+use TypiCMS\Modules\Core\Services\Upload\FileUpload as BaseClass;
 
-class FileUpload extends Base
+class FileUpload extends BaseClass
 {
 
 }

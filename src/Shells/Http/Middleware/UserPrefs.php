@@ -2,9 +2,9 @@
 
 namespace TypiCMS\Modules\Core\Shells\Http\Middleware;
 
-use TypiCMS\Modules\Core\Http\Middleware\UserPrefs as Base;
+use TypiCMS\Modules\Core\Http\Middleware\UserPrefs as BaseClass;
 
-class UserPrefs extends Base
+class UserPrefs extends BaseClass
 {
 
 }

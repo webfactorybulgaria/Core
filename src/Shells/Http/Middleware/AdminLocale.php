@@ -2,9 +2,9 @@
 
 namespace TypiCMS\Modules\Core\Shells\Http\Middleware;
 
-use TypiCMS\Modules\Core\Http\Middleware\AdminLocale as Base;
+use TypiCMS\Modules\Core\Http\Middleware\AdminLocale as BaseClass;
 
-class AdminLocale extends Base
+class AdminLocale extends BaseClass
 {
 
 }

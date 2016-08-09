@@ -2,9 +2,9 @@
 
 namespace TypiCMS\Modules\Core\Shells\Composers;
 
-use TypiCMS\Modules\Core\Composers\LocalesComposer as Base;
+use TypiCMS\Modules\Core\Composers\LocalesComposer as BaseClass;
 
-class LocalesComposer extends Base
+class LocalesComposer extends BaseClass
 {
 
 }

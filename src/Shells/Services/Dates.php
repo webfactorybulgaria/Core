@@ -2,9 +2,9 @@
 
 namespace TypiCMS\Modules\Core\Shells\Services;
 
-use TypiCMS\Modules\Core\Services\Dates as Base;
+use TypiCMS\Modules\Core\Services\Dates as BaseClass;
 
-class Dates extends Base
+class Dates extends BaseClass
 {
 
 }

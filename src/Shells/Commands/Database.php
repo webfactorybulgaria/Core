@@ -2,9 +2,9 @@
 
 namespace TypiCMS\Modules\Core\Shells\Commands;
 
-use TypiCMS\Modules\Core\Commands\Database as Base;
+use TypiCMS\Modules\Core\Commands\Database as BaseClass;
 
-class Database extends Base
+class Database extends BaseClass
 {
 
 }

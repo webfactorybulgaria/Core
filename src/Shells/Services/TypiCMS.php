@@ -2,9 +2,9 @@
 
 namespace TypiCMS\Modules\Core\Shells\Services;
 
-use TypiCMS\Modules\Core\Services\TypiCMS as Base;
+use TypiCMS\Modules\Core\Services\TypiCMS as BaseClass;
 
-class TypiCMS extends Base
+class TypiCMS extends BaseClass
 {
 
 }

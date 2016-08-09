@@ -2,9 +2,9 @@
 
 namespace TypiCMS\Modules\Core\Shells\Observers;
 
-use TypiCMS\Modules\Core\Observers\SlugObserver as Base;
+use TypiCMS\Modules\Core\Observers\SlugObserver as BaseClass;
 
-class SlugObserver extends Base
+class SlugObserver extends BaseClass
 {
 
 }

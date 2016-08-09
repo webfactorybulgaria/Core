@@ -2,9 +2,9 @@
 
 namespace TypiCMS\Modules\Core\Shells\Http\Controllers;
 
-use TypiCMS\Modules\Core\Http\Controllers\BasePublicController as Base;
+use TypiCMS\Modules\Core\Http\Controllers\BasePublicController as BaseClass;
 
-class BasePublicController extends Base
+class BasePublicController extends BaseClass
 {
 
 }

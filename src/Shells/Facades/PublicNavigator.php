@@ -2,9 +2,9 @@
 
 namespace TypiCMS\Modules\Core\Shells\Facades;
 
-use TypiCMS\Modules\Core\Facades\PublicNavigator as Base;
+use TypiCMS\Modules\Core\Facades\PublicNavigator as BaseClass;
 
-class PublicNavigator extends Base
+class PublicNavigator extends BaseClass
 {
 
 }

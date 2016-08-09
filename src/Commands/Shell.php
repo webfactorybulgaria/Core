@@ -9,7 +9,7 @@ use League\Flysystem\Adapter\Local as LocalAdapter;
 use League\Flysystem\Filesystem as Flysystem;
 use League\Flysystem\MountManager;
 
-class Extend extends Command
+class Shell extends Command
 {
     /**
      * The filesystem instance.
@@ -23,7 +23,7 @@ class Extend extends Command
      *
      * @var string
      */
-    protected $signature = 'admintool:extend {module : The module that you want to extend}
+    protected $signature = 'admintool:shell {module : The module that you want to shell}
             {--force : Overwrite any existing files.}';
 
     /**
@@ -31,7 +31,7 @@ class Extend extends Command
      *
      * @var string
      */
-    protected $description = 'Move a module from the vendor directory to the /Modules directory.';
+    protected $description = 'Creates shell classes and modifies the module classes. Copies the files to the /Modules directory.';
 
     /**
      * Current Module.
@@ -197,11 +197,11 @@ $content = '<?php
 
 namespace '.$namespace.';
 
-use '.$baseNamespace.'\\'.$classname.' as BaseClass;
+use '.$baseNamespace.'\\'.$classname.' as BaseTrait;
 
 '.$structureType.' ' . $classname .'
 {
-    use Baseclass;
+    use BaseTrait;
 }
 ';
 
@@ -210,9 +210,9 @@ $content = '<?php
 
 namespace '.$namespace.';
 
-use '.$baseNamespace.'\\'.$classname.' as BaseClass;
+use '.$baseNamespace.'\\'.$classname.' as Base'.ucfirst($structureType).';
 '.($implementsUseLine ? $implementsUseLine . "\n" : '').'
-'.$structureType.' ' . $classname .' extends BaseClass' . ($implements ? ' implements ' . $implements : '') . '
+'.$structureType.' ' . $classname .' extends Base'.ucfirst($structureType).'' . ($implements ? ' implements ' . $implements : '') . '
 {
 
 }

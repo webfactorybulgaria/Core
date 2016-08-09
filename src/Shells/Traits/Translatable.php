@@ -2,11 +2,11 @@
 
 namespace TypiCMS\Modules\Core\Shells\Traits;
 
-use TypiCMS\Modules\Core\Traits\Translatable as Base;
+use TypiCMS\Modules\Core\Traits\Translatable as BaseTrait;
 
 trait Translatable
 {
-    use Base;
+    use BaseTrait;
 
 }
 

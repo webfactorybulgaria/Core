@@ -2,9 +2,9 @@
 
 namespace TypiCMS\Modules\Core\Shells\Http\Middleware;
 
-use TypiCMS\Modules\Core\Http\Middleware\SetLocale as Base;
+use TypiCMS\Modules\Core\Http\Middleware\SetLocale as BaseClass;
 
-class SetLocale extends Base
+class SetLocale extends BaseClass
 {
 
 }

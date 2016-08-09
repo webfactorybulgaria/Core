@@ -2,11 +2,11 @@
 
 namespace TypiCMS\Modules\Core\Shells\Traits;
 
-use TypiCMS\Modules\Core\Traits\HtmlCacheEvents as Base;
+use TypiCMS\Modules\Core\Traits\HtmlCacheEvents as BaseTrait;
 
 trait HtmlCacheEvents
 {
-    use Base;
+    use BaseTrait;
 
 }
 

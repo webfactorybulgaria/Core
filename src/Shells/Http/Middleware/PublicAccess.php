@@ -2,9 +2,9 @@
 
 namespace TypiCMS\Modules\Core\Shells\Http\Middleware;
 
-use TypiCMS\Modules\Core\Http\Middleware\PublicAccess as Base;
+use TypiCMS\Modules\Core\Http\Middleware\PublicAccess as BaseClass;
 
-class PublicAccess extends Base
+class PublicAccess extends BaseClass
 {
 
 }

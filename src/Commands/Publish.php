@@ -31,7 +31,7 @@ class Publish extends Command
      *
      * @var string
      */
-    protected $description = 'Move a module from the vendor directory to the /Modules directory.';
+    protected $description = 'Copies the shell classes from the vendor directory to the /Modules directory.';
 
     /**
      * Create a new key generator command.
@@ -84,8 +84,8 @@ class Publish extends Command
 
         $this->info('Publishing complete for module ['.ucfirst($module).']!');
         $this->warn('You have to add this to your composer.json file in the psr-4 section:');
-        $this->warn('"TypiCMS\\\\Modules\\\\News\\\\Shells\\\\": "Modules/News/Shells/"');
-        $this->warn('Then run composer dumpautoload');
+        $this->warn('"TypiCMS\\\\Modules\\\\'.ucfirst($module).'\\\\Shells\\\\": "Modules/'.ucfirst($module).'/Shells/"');
+        $this->warn('Then run `composer dumpautoload`');
 
     }
 

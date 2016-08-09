@@ -2,9 +2,9 @@
 
 namespace TypiCMS\Modules\Core\Shells\Http\Middleware;
 
-use TypiCMS\Modules\Core\Http\Middleware\RegistrationAllowed as Base;
+use TypiCMS\Modules\Core\Http\Middleware\RegistrationAllowed as BaseClass;
 
-class RegistrationAllowed extends Base
+class RegistrationAllowed extends BaseClass
 {
 
 }

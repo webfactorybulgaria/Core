@@ -2,9 +2,9 @@
 
 namespace TypiCMS\Modules\Core\Shells\Http\Controllers;
 
-use TypiCMS\Modules\Core\Http\Controllers\LocaleController as Base;
+use TypiCMS\Modules\Core\Http\Controllers\LocaleController as BaseClass;
 
-class LocaleController extends Base
+class LocaleController extends BaseClass
 {
 
 }

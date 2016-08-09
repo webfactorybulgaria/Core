@@ -2,9 +2,9 @@
 
 namespace TypiCMS\Modules\Core\Shells\Http\Middleware;
 
-use TypiCMS\Modules\Core\Http\Middleware\PublicCache as Base;
+use TypiCMS\Modules\Core\Http\Middleware\PublicCache as BaseClass;
 
-class PublicCache extends Base
+class PublicCache extends BaseClass
 {
 
 }

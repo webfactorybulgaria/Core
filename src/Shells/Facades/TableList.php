@@ -2,9 +2,9 @@
 
 namespace TypiCMS\Modules\Core\Shells\Facades;
 
-use TypiCMS\Modules\Core\Facades\TableList as Base;
+use TypiCMS\Modules\Core\Facades\TableList as BaseClass;
 
-class TableList extends Base
+class TableList extends BaseClass
 {
 
 }

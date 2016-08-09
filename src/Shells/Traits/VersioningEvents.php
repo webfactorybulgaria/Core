@@ -2,11 +2,11 @@
 
 namespace TypiCMS\Modules\Core\Shells\Traits;
 
-use TypiCMS\Modules\Core\Traits\VersioningEvents as Base;
+use TypiCMS\Modules\Core\Traits\VersioningEvents as BaseTrait;
 
 trait VersioningEvents
 {
-    use Base;
+    use BaseTrait;
 
 }
 

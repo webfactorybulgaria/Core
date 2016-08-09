@@ -2,9 +2,9 @@
 
 namespace TypiCMS\Modules\Core\Shells\Composers;
 
-use TypiCMS\Modules\Core\Composers\MasterViewComposer as Base;
+use TypiCMS\Modules\Core\Composers\MasterViewComposer as BaseClass;
 
-class MasterViewComposer extends Base
+class MasterViewComposer extends BaseClass
 {
 
 }

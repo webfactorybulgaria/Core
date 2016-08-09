@@ -2,9 +2,9 @@
 
 namespace TypiCMS\Modules\Core\Shells\Commands;
 
-use TypiCMS\Modules\Core\Commands\Create as Base;
+use TypiCMS\Modules\Core\Commands\Create as BaseClass;
 
-class Create extends Base
+class Create extends BaseClass
 {
 
 }

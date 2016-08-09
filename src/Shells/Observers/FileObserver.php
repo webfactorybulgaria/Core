@@ -2,9 +2,9 @@
 
 namespace TypiCMS\Modules\Core\Shells\Observers;
 
-use TypiCMS\Modules\Core\Observers\FileObserver as Base;
+use TypiCMS\Modules\Core\Observers\FileObserver as BaseClass;
 
-class FileObserver extends Base
+class FileObserver extends BaseClass
 {
 
 }
