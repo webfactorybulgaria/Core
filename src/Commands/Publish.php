@@ -31,7 +31,7 @@ class Publish extends Command
      *
      * @var string
      */
-    protected $description = 'Move a module from the vendor directory to the /Modules directory.';
+    protected $description = 'Copies the shell classes from the vendor directory to the /Modules directory.';
 
     /**
      * Create a new key generator command.
@@ -58,9 +58,7 @@ class Publish extends Command
         }
         $provider = 'TypiCMS\Modules\\'.ucfirst($module).'\Providers\ModuleProvider';
         if (class_exists($provider)) {
-            $this->call('vendor:publish', ['--provider' => $provider]);
             $this->publishModule($module);
-            $this->uninstallFromComposer($module);
         } else {
             throw new Exception($provider.' not found, did you add it to config/app.php?');
         }
@@ -75,8 +73,8 @@ class Publish extends Command
      */
     private function publishModule($module)
     {
-        $from = base_path('vendor/webfactorybulgaria/'.$module.'/src');
-        $to = base_path('Modules/'.ucfirst($module));
+        $from = base_path('vendor/webfactorybulgaria/'.$module.'/src/Shells');
+        $to = base_path('Modules/'.ucfirst($module).'/Shells');
 
         if ($this->files->isDirectory($from)) {
             $this->publishDirectory($from, $to);
@@ -85,6 +83,10 @@ class Publish extends Command
         }
 
         $this->info('Publishing complete for module ['.ucfirst($module).']!');
+        $this->warn('You have to add this to your composer.json file in the psr-4 section:');
+        $this->warn('"TypiCMS\\\\Modules\\\\'.ucfirst($module).'\\\\Shells\\\\": "Modules/'.ucfirst($module).'/Shells/"');
+        $this->warn('Then run `composer dumpautoload`');
+
     }
 
     /**

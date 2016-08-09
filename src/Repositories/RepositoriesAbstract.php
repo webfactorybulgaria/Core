@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Request;
 use stdClass;
-use TypiCMS\Modules\Pages\Models\Page;
+use TypiCMS\Modules\Pages\Shells\Models\Page;
 use TypiCMS\NestedCollection;
 
 abstract class RepositoriesAbstract implements RepositoryInterface
