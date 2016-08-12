@@ -22,6 +22,15 @@ abstract class BaseApiController extends Controller
     }
 
     /**
+     * Perform any modification on the models data if necessary
+     *
+     */
+    protected function transform($models)
+    {
+        return $models;
+    }
+
+    /**
      * List resources.
      *
      * @return \Illuminate\Http\JsonResponse
@@ -45,7 +54,7 @@ abstract class BaseApiController extends Controller
 
         }
 
-        $models = [$models];
+        $models = [$this->transform($models)];
 
         return response()->json($models, 200, [], JSON_NUMERIC_CHECK);
     }
