@@ -141,6 +141,10 @@ class Create extends Command
             $moduleDir.'/Models/ObjectTranslation.php',
             $moduleDir.'/Repositories/ObjectInterface.php',
             $moduleDir.'/Repositories/EloquentObject.php',
+            $moduleDir.'/Shells/Models/Object.php',
+            $moduleDir.'/Shells/Models/ObjectTranslation.php',
+            $moduleDir.'/Shells/Repositories/ObjectInterface.php',
+            $moduleDir.'/Shells/Repositories/EloquentObject.php',
         ];
         foreach ($paths as $path) {
             $this->files->move($path, $this->transformFilename($path));
