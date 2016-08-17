@@ -52,6 +52,11 @@ class SmartTableList
         $this->builder->where($field, '=', $value);
     }
 
+    protected function setFilter($field, $value)
+    {
+        $this->builder->whereIn($field, explode(',', $value));
+    }
+
     public function applyTableStateSearch($tableState)
     {
         // Filtering

@@ -66,8 +66,8 @@ class Shell extends Command
         }
         $this->publishModule();
         $this->rebuildBaseClasses();
-        $this->publishModule('/Custom');
-        $this->buildCustomClasses();
+        $this->publishModule('/Shells');
+        $this->buildShellClasses();
     }
 
     /**
@@ -121,7 +121,7 @@ class Shell extends Command
 
     /**
      * Search and remplace all occurences of 
-     * TypiCMS\Modules\<Module> to TypiCMS\Modules\<Module>\Custom
+     * TypiCMS\Modules\<Module> to TypiCMS\Modules\<Module>\Shells
      */
     public function rebuildBaseClasses()
     {
@@ -133,12 +133,12 @@ class Shell extends Command
 
         foreach ($manager->listContents('directory://', true) as $file) {
             if ($file['type'] === 'file') {
-                // Replace references to include Custom
-                $content = preg_replace('|TypiCMS\\\\Modules\\\\([\w]+)|', "TypiCMS\\\\Modules\\\\$1\\\\Custom", $manager->read('directory://'.$file['path']));
+                // Replace references to include Shells
+                $content = preg_replace('|TypiCMS\\\\Modules\\\\([\w]+)|', "TypiCMS\\\\Modules\\\\$1\\\\Shells", $manager->read('directory://'.$file['path']));
                 $manager->put('directory://'.$file['path'], $content);
 
                 // Replace namespaces back to normal
-                $content = preg_replace('|namespace[ ]+TypiCMS\\\\Modules\\\\' . $this->module . '\\\\Custom|', 'namespace TypiCMS\\\\Modules\\\\' . $this->module, $manager->read('directory://'.$file['path']));
+                $content = preg_replace('|namespace[ ]+TypiCMS\\\\Modules\\\\' . $this->module . '\\\\Shells|', 'namespace TypiCMS\\\\Modules\\\\' . $this->module, $manager->read('directory://'.$file['path']));
                 $manager->put('directory://'.$file['path'], $content);
 
             }
@@ -148,11 +148,11 @@ class Shell extends Command
 
     /**
      * Search and remplace all occurences of 
-     * TypiCMS\Modules\<Module> to TypiCMS\Modules\<Module>\Custom
+     * TypiCMS\Modules\<Module> to TypiCMS\Modules\<Module>\Shells
      */
-    public function buildCustomClasses()
+    public function buildShellClasses()
     {
-        $directory = base_path('Modules/'.$this->module . '/Custom');
+        $directory = base_path('Modules/'.$this->module . '/Shells');
 
         $manager = new MountManager([
             'directory' => new Flysystem(new LocalAdapter($directory)),
@@ -165,9 +165,9 @@ class Shell extends Command
 
                 $matches = [];
                 if (preg_match('|namespace[ ]+(.*);|', $source, $matches)) {
-                    $namespace = preg_replace('|TypiCMS\\\\Modules\\\\([\w]+)|', "TypiCMS\\\\Modules\\\\$1\\\\Custom", $matches[1]);
+                    $namespace = preg_replace('|TypiCMS\\\\Modules\\\\([\w]+)|', "TypiCMS\\\\Modules\\\\$1\\\\Shells", $matches[1]);
 
-                    $baseNamespace = str_replace('\Custom', '', $namespace);
+                    $baseNamespace = str_replace('\Shells', '', $namespace);
                     
                     if (preg_match('/(class|interface|trait) +(\w+)(.*)?/', $source, $matches)) {
                         $structureType = $matches[1];
@@ -183,7 +183,7 @@ class Shell extends Command
                                     if (preg_match('|use[ ]+(.*)' . preg_quote($implements) . ';|', $source, $matches)) {
                                         // there is use clause for the implemented interface
                                         if (preg_match('|TypiCMS|', $matches[1])) {
-                                            $implementsUseLine = preg_replace('|TypiCMS\\\\Modules\\\\([\w]+)|', "TypiCMS\\\\Modules\\\\$1\\\\Custom", $matches[0]);
+                                            $implementsUseLine = preg_replace('|TypiCMS\\\\Modules\\\\([\w]+)|', "TypiCMS\\\\Modules\\\\$1\\\\Shells", $matches[0]);
                                         } else {
                                             $implementsUseLine = $matches[0];
                                         }

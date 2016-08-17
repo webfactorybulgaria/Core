@@ -21,12 +21,21 @@ abstract class BaseApiController extends Controller
         $this->repository = $repository;
     }
 
+    
+    /**
+     * Perform any modification on the models data if necessary
+     *
+     */
+    protected function transform($models)
+    {
+        return $models;
+    }
+
     /**
      * List resources.
      *
      * @return \Illuminate\Http\JsonResponse
      */
-
     public function index($builder = null)
     {
         $request = Request::all();
@@ -45,7 +54,7 @@ abstract class BaseApiController extends Controller
 
         }
 
-        $models = [$models];
+        $models = [$this->transform($models)];
 
         return response()->json($models, 200, [], JSON_NUMERIC_CHECK);
     }

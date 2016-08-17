@@ -75,7 +75,7 @@ class Create extends Command
         $this->deleteViewsAndDatabaseDirs();
         $this->line('------------------');
         $this->line('<info>The module</info> <comment>'.$this->module.'</comment> <info>was created in</info> <comment>/Modules</comment><info>, customize it!</info>');
-        $this->line('<info>Add</info> <comment>TypiCMS\Modules\\'.$this->module.'\Providers\ModuleProvider::class,</comment>');
+        $this->line('<info>Add</info> <comment>TypiCMS\Modules\\'.$this->module.'\Shells\Providers\ModuleProvider::class,</comment>');
         $this->line('<info>to the providers array in</info> <comment>config/app.php</comment><info>.</info>');
         $this->line('<info>Run the migration with the command</info> <comment>php artisan migrate</comment><info>.</info>');
         $this->line('------------------');
@@ -141,6 +141,10 @@ class Create extends Command
             $moduleDir.'/Models/ObjectTranslation.php',
             $moduleDir.'/Repositories/ObjectInterface.php',
             $moduleDir.'/Repositories/EloquentObject.php',
+            $moduleDir.'/Shells/Models/Object.php',
+            $moduleDir.'/Shells/Models/ObjectTranslation.php',
+            $moduleDir.'/Shells/Repositories/ObjectInterface.php',
+            $moduleDir.'/Shells/Repositories/EloquentObject.php',
         ];
         foreach ($paths as $path) {
             $this->files->move($path, $this->transformFilename($path));

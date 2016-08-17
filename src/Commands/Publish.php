@@ -53,8 +53,10 @@ class Publish extends Command
     public function fire()
     {
         $module = strtolower($this->argument('module'));
-        if (!is_dir(base_path('vendor/webfactorybulgaria/'.$module))) {
-            throw new Exception('Module “'.$module.'” not found in vendor directory.');
+        $modules = config('typicms.modules');
+
+        if (!is_dir(base_path('vendor/webfactorybulgaria/'.$module)) && empty($modules[$module])) {
+            throw new Exception('Module “'.$module.'” not found.');
         }
         $provider = 'TypiCMS\Modules\\'.ucfirst($module).'\Providers\ModuleProvider';
         if (class_exists($provider)) {
@@ -73,7 +75,9 @@ class Publish extends Command
      */
     private function publishModule($module)
     {
-        $from = base_path('vendor/webfactorybulgaria/'.$module.'/src/Shells');
+        $modules = config('typicms.modules');
+
+        $from = empty($modules[$module]['srcDir']) ? base_path('vendor/webfactorybulgaria/'.$module.'/src/Shells') : $modules[$module]['srcDir'];
         $to = base_path('Modules/'.ucfirst($module).'/Shells');
 
         if ($this->files->isDirectory($from)) {
