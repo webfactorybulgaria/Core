@@ -32,6 +32,15 @@ abstract class BaseApiController extends Controller
     }
 
     /**
+     * Perform any modification on the models data if necessary
+     *
+     */
+    protected function transform($models)
+    {
+        return $models;
+    }
+
+    /**
      * List resources.
      *
      * @return \Illuminate\Http\JsonResponse
