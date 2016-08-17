@@ -21,16 +21,6 @@ abstract class BaseApiController extends Controller
         $this->repository = $repository;
     }
 
-    
-    /**
-     * Perform any modification on the models data if necessary
-     *
-     */
-    protected function transform($models)
-    {
-        return $models;
-    }
-
     /**
      * Perform any modification on the models data if necessary
      *
