@@ -55,7 +55,7 @@ abstract class BaseApiController extends Controller
 
         $models = [$this->transform($models)];
 
-        return response()->json($models, 200, [], JSON_NUMERIC_CHECK);
+        return response()->json($models, 200);
     }
 
     /**
