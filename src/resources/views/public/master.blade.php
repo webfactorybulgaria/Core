@@ -91,6 +91,8 @@
 
     </div>
 
+    @include('core::_javascript')
+
     <script src="@if(app()->environment('production')){{ asset(elixir('js/public/components.min.js')) }}@else{{ asset('js/public/components.min.js') }}@endif"></script>
     <script src="@if(app()->environment('production')){{ asset(elixir('js/public/master.js')) }}@else{{ asset('js/public/master.js') }}@endif"></script>
     @if (Request::input('preview'))

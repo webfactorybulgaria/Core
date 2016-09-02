@@ -50,11 +50,13 @@
                 @endif
             @show
 
-            @yield('main')
+            <div ng-cloack>
+                @yield('main')
+            </div>
 
         </div>
 
-        @include('core::admin._javascript')
+        @include('core::_javascript')
 
         <script src="@if(app()->environment('production')){{ asset(elixir('js/admin/components.min.js')) }}@else{{ asset('js/admin/components.min.js') }}@endif"></script>
 

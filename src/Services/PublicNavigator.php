@@ -29,7 +29,7 @@ class PublicNavigator
             app()->instance('currentPage', app('typicms')->getPageLinkedToModule($this->currentModule()));
         }
 
-        return app('currentPage');
+        return app()->resolved('currentPage') ? app('currentPage') : null;
     }
     
     /**
