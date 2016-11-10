@@ -446,6 +446,11 @@ abstract class RepositoriesAbstract implements RepositoryInterface
         if (is_array($data[$table])) {
             foreach ($data[$table] as $id) {
                 $pivotData[$id] = ['position' => $position++];
+                
+                // You can use i.e name="shapes_pivot[id][fieldname]" to pass additional fields to the pivot table
+                if (!empty($data[$table . '_pivot'][$id]) && is_array($data[$table . '_pivot'][$id])){
+                    $pivotData[$id] = array_merge($pivotData[$id], $data[$table . '_pivot'][$id]);
+                }
             }
         }
 
