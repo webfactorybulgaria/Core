@@ -5,12 +5,11 @@
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
     <title>@yield('title')</title>
     <meta name="description" content="@yield('description')">
     <meta name="keywords" content="@yield('keywords')">
     @yield('meta_tags')
-
     <meta property="og:site_name" content="{{ $websiteTitle }}">
     <meta property="og:title" content="@yield('ogTitle')">
     <meta property="og:description" content="@yield('description')">
@@ -19,13 +18,9 @@
     <meta property="og:image" content="@yield('image')">
 
     <link href="{{ app()->isLocal() ? asset('css/public.css') : asset(elixir('css/public.css')) }}" rel="stylesheet">
-
     @include('core::public._feed-links')
-
     @yield('css')
-
     @if(app()->environment('production') and config('typicms.google_analytics_code'))
-
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -34,7 +29,6 @@
         ga('create', '{{ config('typicms.google_analytics_code') }}', 'auto');
         ga('send', 'pageview');
     </script>
-
     @endif
 
 </head>
@@ -42,54 +36,61 @@
 <body class="body-{{ $lang }} @yield('bodyClass') @if($navbar)has-navbar @endif">
 
     @section('skip-links')
-    <a href="#main" class="skip-to-content">@lang('db.Skip to content')</a>
-    <a href="#site-nav" class="btn-offcanvas" data-toggle="offcanvas" title="@lang('db.Open navigation')" aria-label="@lang('db.Open navigation')" role="button" aria-controls="navigation" aria-expanded="false"><span class="fa fa-bars fa-fw" aria-hidden="true"></span></a>
+    <a href="#main" class="skip-to-content sr-only">@lang('db.Skip to content')</a>
     @show
 
-    @include('core::_navbar')
+    {{-- @include('core::_navbar') --}}
 
-    <div class="site-container" id="main" role="main">
+    @section('site-header')
+    <header class="header navbar navbar-inverse">
+        <div class="container">
 
-        @section('site-header')
-        <header class="site-header">
-            @section('site-title')
-            <div class="site-title">@include('core::public._site-title')</div>
-            @show
-        </header>
-        @show
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
+                    <span class="sr-only">@lang('db.Toggle navigation')</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
 
-        <div class="sidebar-offcanvas">
+                @section('site-title')
+                    @include('core::public._site-title')
+                @show
+            </div>
 
-            <button class="btn-offcanvas btn-offcanvas-close" data-toggle="offcanvas" title="@lang('global.Close navigation')" aria-label="@lang('global.Close navigation')"><span class="fa fa-close fa-fw" aria-hidden="true"></span></button>
 
             @section('lang-switcher')
                 @include('core::public._lang-switcher')
             @show
 
             @section('site-nav')
-            <nav class="site-nav" id="site-nav">
+            <nav class="site-nav navbar-collapse collapse" id="navbar">
                 {!! Menus::render('main') !!}
             </nav>
             @show
 
         </div>
+    </header>
+    @show
 
+    <main class="main" id="main">
         @include('core::public._alert')
-
         @yield('main')
+    </main>
 
-        @section('site-footer')
-        <footer class="site-footer">
-            <nav class="social-nav">
-                {!! Menus::render('social') !!}
-            </nav>
+    @section('site-footer')
+    <footer class="footer">
+        <div class="container">
             <nav class="footer-nav">
                 {!! Menus::render('footer') !!}
             </nav>
-        </footer>
-        @show
+            <nav class="social-nav">
+                {!! Menus::render('social') !!}
+            </nav>
+        </div>
+    </footer>
+    @show
 
-    </div>
 
     @include('core::_javascript')
 
