@@ -88,6 +88,14 @@
                 {!! Menus::render('social') !!}
             </nav>
         </div>
+        <div class="footer-copy">
+            <div class="container">
+                <p class="copyright">&copy; {{ date('Y') }} {{ $websiteTitle }}</p>
+                <p class="made-by">
+                    Made by <a href="http://www.webfactory.bg/en/portfolio.html" title="Webfactory Web Design and Web Development" target="_blank"><img src="/uploads/WF_logo_alt.svg" alt="Webfactory" height="16"></a>
+                </p>
+            </div>
+        </div>
     </footer>
     @show
 
