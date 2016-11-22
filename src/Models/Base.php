@@ -25,7 +25,13 @@ abstract class Base extends Model
             return '/';
         }
 
-        return url($this->uri(config('translatable.locale')));
+        $uri = $this->uri(config('translatable.locale'));
+        
+        if (!$uri) {
+            return '/';
+        }
+
+        return url($uri);
     }
 
     /**

@@ -12,6 +12,7 @@ return [
         'nl' => 'Dutch',
         'en' => 'English',
         'es' => 'Spanish',
+        'bg' => 'Bulgariam',
     ],
     'form' => [
         'page content' => 'page content',
