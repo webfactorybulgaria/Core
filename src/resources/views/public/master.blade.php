@@ -9,6 +9,8 @@
     <title>@yield('title')</title>
     <meta name="description" content="@yield('description')">
     <meta name="keywords" content="@yield('keywords')">
+    <meta name="robots" content="<?= App::environment() == 'production' ? "all" : "noindex, nofollow" ?>" />
+
     @yield('meta_tags')
     <meta property="og:site_name" content="{{ $websiteTitle }}">
     <meta property="og:title" content="@yield('ogTitle')">
