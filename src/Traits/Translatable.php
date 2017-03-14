@@ -7,7 +7,9 @@ use TypiCMS\Modules\Core\Shells\Scopes\TranslatableScope;
 
 trait Translatable
 {
-    use BaseTranslatable;
+    use BaseTranslatable {
+        getAttribute as protected getBaseAttribute;
+    }
 
     /**
      * Boot the trait.
@@ -45,7 +47,8 @@ trait Translatable
      */
     public function getAttribute($key)
     {
-        return parent::getAttribute($key);
+        if (!isset($this->attributes[$key])) return $this->getBaseAttribute($key);
+        else return parent::getAttribute($key);
     }
 
     public function hasTranslation($locale = null)
