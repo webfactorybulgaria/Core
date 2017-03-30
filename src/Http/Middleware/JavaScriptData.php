@@ -34,6 +34,7 @@ class JavaScriptData
             '_token'          => csrf_token(),
             'encrypted_token' => Crypt::encrypt(csrf_token()),
             'locales'         => $locales,
+            'locale'          => config('translatable.locale'),
             'options'         => new \stdClass,
         ]);
 
