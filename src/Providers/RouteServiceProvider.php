@@ -2,7 +2,8 @@
 
 namespace TypiCMS\Modules\Core\Providers;
 
-use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use TypiCMS\Modules\Core\Shells\Providers\BaseRouteServiceProvider as ServiceProvider;
+
 use Illuminate\Routing\Router;
 use URL;
 
