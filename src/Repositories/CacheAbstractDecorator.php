@@ -383,7 +383,7 @@ abstract class CacheAbstractDecorator implements RepositoryInterface
         $this->cache->flush();
         $this->cache->flush('dashboard');
 
-        return $this->repo->create($data);
+        return $this->repo->create($data, $syncTables);
     }
 
     /**
