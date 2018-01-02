@@ -13,7 +13,7 @@ abstract class CacheAbstractDecorator implements RepositoryInterface
 
     protected function cachePrefix()
     {
-        return '';
+        return config('app.locale');
     }
 
     /**
@@ -57,7 +57,7 @@ abstract class CacheAbstractDecorator implements RepositoryInterface
     public function byId($id, array $with = [])
     {
         // Build the cache key, unique per model slug
-        $cacheKey = md5($this->cachePrefix().config('app.locale').'id.'.serialize($with).$id.serialize(Request::all()));
+        $cacheKey = md5($this->cachePrefix().'id.'.serialize($with).$id.serialize(Request::all()));
 
         if ($this->cache->has($cacheKey)) {
             return $this->cache->get($cacheKey);
@@ -84,7 +84,7 @@ abstract class CacheAbstractDecorator implements RepositoryInterface
     public function next($model, $category_id = null, array $with = [], $all = false)
     {
         // Build the cache key, unique per model slug
-        $cacheKey = md5($this->cachePrefix().config('app.locale').'next.'.$model->id.$all.$category_id.serialize($with));
+        $cacheKey = md5($this->cachePrefix().'next.'.$model->id.$all.$category_id.serialize($with));
         if ($this->cache->has($cacheKey)) {
             return $this->cache->get($cacheKey);
         }
@@ -109,7 +109,7 @@ abstract class CacheAbstractDecorator implements RepositoryInterface
     public function prev($model, $category_id = null, array $with = [], $all = false)
     {
         // Build the cache key, unique per model slug
-        $cacheKey = md5($this->cachePrefix().config('app.locale').'prev.'.$model->id.$all.$category_id.serialize($with));
+        $cacheKey = md5($this->cachePrefix().'prev.'.$model->id.$all.$category_id.serialize($with));
         if ($this->cache->has($cacheKey)) {
             return $this->cache->get($cacheKey);
         }
@@ -135,7 +135,7 @@ abstract class CacheAbstractDecorator implements RepositoryInterface
     public function adjacent($direction, $model, $category_id = null, array $with = [], $all = false)
     {
         // Build the cache key, unique per model slug
-        $cacheKey = md5($this->cachePrefix().config('app.locale').'adjacent.'.$direction.$model->id.$category_id.serialize($with).$all);
+        $cacheKey = md5($this->cachePrefix().'adjacent.'.$direction.$model->id.$category_id.serialize($with).$all);
         if ($this->cache->has($cacheKey)) {
             return $this->cache->get($cacheKey);
         }
@@ -157,7 +157,7 @@ abstract class CacheAbstractDecorator implements RepositoryInterface
     public function getFirstBy($key, $value, array $with = [], $all = false)
     {
         // Build the cache key, unique per model slug
-        $cacheKey = md5($this->cachePrefix().config('app.locale').'getFirstBy'.$key.$value.serialize($with).$all.serialize(Request::all()));
+        $cacheKey = md5($this->cachePrefix().'getFirstBy'.$key.$value.serialize($with).$all.serialize(Request::all()));
 
         if ($this->cache->has($cacheKey)) {
             return $this->cache->get($cacheKey);
@@ -183,7 +183,7 @@ abstract class CacheAbstractDecorator implements RepositoryInterface
      */
     public function byPage($page = 1, $limit = 10, array $with = [], $all = false)
     {
-        $cacheKey = md5($this->cachePrefix().config('app.locale').'byPage'.$page.$limit.serialize($with).$all.serialize(Request::except('page')));
+        $cacheKey = md5($this->cachePrefix().'byPage'.$page.$limit.serialize($with).$all.serialize(Request::except('page')));
 
         if ($this->cache->has($cacheKey)) {
             return $this->cache->get($cacheKey);
@@ -207,7 +207,7 @@ abstract class CacheAbstractDecorator implements RepositoryInterface
      */
     public function all(array $with = [], $all = false)
     {
-        $cacheKey = md5($this->cachePrefix().config('app.locale').'all'.serialize($with).$all.serialize(Request::except('page')));
+        $cacheKey = md5($this->cachePrefix().'all'.serialize($with).$all.serialize(Request::except('page')));
 
         if ($this->cache->has($cacheKey)) {
             return $this->cache->get($cacheKey);
@@ -232,7 +232,7 @@ abstract class CacheAbstractDecorator implements RepositoryInterface
      */
     public function allNested(array $with = [], $all = false)
     {
-        $cacheKey = md5($this->cachePrefix().config('app.locale').'allNested'.serialize($with).$all.serialize(Request::except('page')));
+        $cacheKey = md5($this->cachePrefix().'allNested'.serialize($with).$all.serialize(Request::except('page')));
 
         if ($this->cache->has($cacheKey)) {
             return $this->cache->get($cacheKey);
@@ -259,7 +259,7 @@ abstract class CacheAbstractDecorator implements RepositoryInterface
      */
     public function allBy($key, $value, array $with = [], $all = false)
     {
-        $cacheKey = md5($this->cachePrefix().config('app.locale').'allBy'.$key.$value.serialize($with).$all.serialize(Request::all()));
+        $cacheKey = md5($this->cachePrefix().'allBy'.$key.$value.serialize($with).$all.serialize(Request::all()));
 
         if ($this->cache->has($cacheKey)) {
             return $this->cache->get($cacheKey);
@@ -286,7 +286,7 @@ abstract class CacheAbstractDecorator implements RepositoryInterface
      */
     public function allNestedBy($key, $value, array $with = [], $all = false)
     {
-        $cacheKey = md5($this->cachePrefix().config('app.locale').'allNestedBy'.$key.$value.serialize($with).$all.serialize(Request::all()));
+        $cacheKey = md5($this->cachePrefix().'allNestedBy'.$key.$value.serialize($with).$all.serialize(Request::all()));
 
         if ($this->cache->has($cacheKey)) {
             return $this->cache->get($cacheKey);
@@ -311,7 +311,7 @@ abstract class CacheAbstractDecorator implements RepositoryInterface
      */
     public function latest($number = 10, array $with = [])
     {
-        $cacheKey = md5($this->cachePrefix().config('app.locale').'latest'.$number.serialize($with).serialize(Request::all()));
+        $cacheKey = md5($this->cachePrefix().'latest'.$number.serialize($with).serialize(Request::all()));
 
         if ($this->cache->has($cacheKey)) {
             return $this->cache->get($cacheKey);
@@ -337,7 +337,7 @@ abstract class CacheAbstractDecorator implements RepositoryInterface
     public function bySlug($slug, array $with = [])
     {
         // Build the cache key, unique per model slug
-        $cacheKey = md5($this->cachePrefix().config('app.locale').'bySlug'.$slug.serialize($with).serialize(Request::all()));
+        $cacheKey = md5($this->cachePrefix().'bySlug'.$slug.serialize($with).serialize(Request::all()));
 
         if ($this->cache->has($cacheKey)) {
             return $this->cache->get($cacheKey);
@@ -361,7 +361,7 @@ abstract class CacheAbstractDecorator implements RepositoryInterface
     public function has($relation, array $with = [])
     {
         // Build the cache key, unique per model slug
-        $cacheKey = md5($this->cachePrefix().config('app.locale').'has'.serialize($with).$relation);
+        $cacheKey = md5($this->cachePrefix().'has'.serialize($with).$relation);
 
         if ($this->cache->has($cacheKey)) {
             return $this->cache->get($cacheKey);
