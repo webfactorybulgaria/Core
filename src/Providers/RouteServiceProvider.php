@@ -4,7 +4,7 @@ namespace TypiCMS\Modules\Core\Providers;
 
 use TypiCMS\Modules\Core\Shells\Providers\BaseRouteServiceProvider as ServiceProvider;
 
-use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Route;
 use URL;
 
 class RouteServiceProvider extends ServiceProvider
@@ -21,23 +21,23 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * Define the routes for the application.
      *
-     * @param \Illuminate\Routing\Router $router
+     * @param \Illuminate\Routing\
      *
      * @return void
      */
-    public function map(Router $router)
+    public function map()
     {
-        $router->group(['namespace' => $this->namespace], function (Router $router) {
+        Route::group(['namespace' => $this->namespace], function () {
             /*
              * Admin routes
              */
-            $router->get('admin/_locale/{locale}', 'LocaleController@setContentLocale')->name('admin::change-locale');
+            Route::get('admin/_locale/{locale}', 'LocaleController@setContentLocale')->name('admin::change-locale');
         });
 
         /*
          * Api routes
          */
-        $router->get('admin/duplicate/{alias}/{resource}', function($alias, $resource) {
+        Route::get('admin/duplicate/{alias}/{resource}', function($alias, $resource) {
 
             $repository = app(ucfirst($alias));
             $oldItem = $repository::make()->skip()->find($resource);
