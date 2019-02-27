@@ -40,7 +40,7 @@ abstract class BaseApiController extends Controller
         $request = Request::all();
 
         if (!empty($request["tableState"])) { // TODO - a factory here would be nice
-            $builder = $builder ?: $this->repository->getModel()->query();
+            $builder = $builder ?: $this->repository->getModel()->query()->orderBy('id','desc');
 
             $list = TableList::apply($builder);
             $perPage = $list->getPerPage();
